@@ -49,7 +49,7 @@ def convert_yolo_to_labelme(yolo_annotation_dir, labelme_output_dir, image_width
                 if shape_type == 'rectangle':
                     labelme_shapes.append({
                         'label': class_label,
-                        'points': [[x1, y1], [x2, y1], [x2, y2], [x1, y2]],  # Rectangle coordinates
+                        'points': [[x1, y1], [x2, y2]],  # Rectangle coordinates
                         'group_id': None,
                         'shape_type': shape_type,
                         'flags': {},
@@ -83,27 +83,27 @@ def main():
     # Create argument parser
     parser = argparse.ArgumentParser(description="Convert YOLO annotations to LabelMe JSON format.")
     
-    # Add arguments
-    parser.add_argument("--yolo", required=True, help="Path to the YOLO annotations directory.")
-    parser.add_argument("--labelme", required=False, default= 'results', help="Path to output directory.")
-    parser.add_argument("--width", type=int, required=False, default= 1024, help="Width of the images.")
-    parser.add_argument("--height", type=int, required=False, default= 1024, help="Height of the images.")
-    parser.add_argument("--classes", required=True, help="Path to the classes file(TXT format).")
+    # Add arguments with shorter names
+    parser.add_argument("--yolo", required=True, help="Path to the YOLO-annotation(TXT) directory.")
+    parser.add_argument("--labelme", required=False, default= 'results', help="Path to the LabelMe-output(JSON) directory.")
+    parser.add_argument("--width", type=int, required=False, default= 1024, help="Width of the images")
+    parser.add_argument("--height", type=int, required=False, default= 1024, help="Height of the images")
+    parser.add_argument("--classes", required=True, help="Path to the classes file (TXT format).")
     
     args = parser.parse_args()
-
+    
     # Create the output directory if it doesn't exist
-    if not os.path.exists(args.labelme_output_dir):
-        os.makedirs(args.labelme_output_dir)    
+    if not os.path.exists(args.labelme):
+        os.makedirs(args.labelme)
     
     # Load class mapping from file
-    class_mapping = load_class_mapping(args.class_mapping_file)
+    class_mapping = load_class_mapping(args.classes)
     
     # Convert YOLO annotations to LabelMe format
-    convert_yolo_to_labelme(args.yolo_annotation_dir, args.labelme_output_dir, args.image_width, args.image_height, class_mapping)
-    
-    print("---------------Conversion completed----------------")
-    
+    convert_yolo_to_labelme(args.yolo, args.labelme, args.width, args.height, class_mapping)
+
+
+    print("-------------------------Conversion completed------------------------------")
     
 if __name__ == '__main__':
     main()
