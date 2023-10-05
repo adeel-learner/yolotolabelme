@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yolotolabelme"
+version = "0.0.6"
+authors = [
+  { name="Adeel Waheed", email="itsadeelemail@gmail.com" },
+]
+description = "A python script for converting annotation format(yolo-txt to labelme-json)"
+readme = "README.md"
+requires-python = ">=3.6"
+
+dependencies = [
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+
+[project.scripts]
+yolotolabelme = "yolotolabelme:main"
+
+[project.urls]
+"Homepage" = "https://github.com/adeel-maker/yolotolabelme"
+"Bug Tracker" = "https://github.com/adeel-maker/yolotolabelme/issues"
