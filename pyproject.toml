@@ -3,8 +3,8 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "yolotolabelme"
-version = "0.0.6"
+name = "yolo-to-labelme"
+version = "0.0.3"
 authors = [
   { name="Adeel Waheed", email="itsadeelemail@gmail.com" },
 ]
