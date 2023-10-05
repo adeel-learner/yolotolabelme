@@ -23,11 +23,11 @@ Arguments:
 Specify yolo-labels-directory, output directory(optional), classes file and image size((width, height), optional).
 
 ```bash
-yolotolabelme --yolo-annotation-dir path/to/yoloAnnotations --labelme-output-dir path/to/output --class-mapping-file path/to/classes-file
+yolotolabelme --yolo path/to/yoloAnnotations --labelme path/to/output --classes path/to/classes-file
 ```
 
 ## Useful links
-Github code: https://github.com/adeel-maker/yolo-to-labelme/
+Github code: https://github.com/adeel-maker/yolotolabelme/
 
 Yolo to labelme: https://pypi.org/project/yolo-to-labelme/
 
