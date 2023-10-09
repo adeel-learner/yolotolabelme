@@ -27,7 +27,6 @@ yolotolabelme --yolo path/to/yoloAnnotations --labelme path/to/output --classes 
 ```
 
 ## Useful links
-Github code: https://github.com/adeel-maker/yolotolabelme/
 
 Yolo to labelme: https://pypi.org/project/yolo-to-labelme/
 
