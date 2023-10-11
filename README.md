@@ -11,11 +11,11 @@ Arguments:
 
 `--yolo` : path to YOLO annotations directory.
 
-`--labelme` : path to output directory.
+`--labelme(optional)` : path to output directory.
  
-`--width` : default value is 1024.
+`--width(optional)` : default value is 1024.
 
-`--height` : default value is 1024.
+`--height(optional)` : default value is 1024.
 
 `--classes` : Path to the classes file(TXT format).
 
