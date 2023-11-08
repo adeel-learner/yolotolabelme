@@ -19,8 +19,10 @@ Arguments:
 
 `--classes` : Path to the classes file(TXT format).
 
+`--img_ext` : Image file extension (e.g., .jpg, .png, etc.).
+
 ### CLI Usage:
-Specify yolo-labels-directory, output directory(optional), classes file and image size((width, height), optional).
+Specify yolo-labels-directory, output directory(optional), classes file, image size(width, height)(optional), and image extention(optional).
 
 ```bash
 yolotolabelme --yolo path/to/yoloAnnotations --labelme path/to/output --classes path/to/classes-file
