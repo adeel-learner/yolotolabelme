@@ -11,7 +11,7 @@ def load_class_mapping(mapping_file):
             class_mapping[index] = class_name
     return class_mapping
 
-def convert_yolo_to_labelme(yolo_annotation_dir, labelme_output_dir, image_width, image_height, class_mapping):
+def convert_yolo_to_labelme(yolo_annotation_dir, labelme_output_dir, image_width, image_height, class_mapping, img_ext):
     # Create LabelMe output directory if it doesn't exist
     os.makedirs(labelme_output_dir, exist_ok=True)
 
@@ -68,7 +68,7 @@ def convert_yolo_to_labelme(yolo_annotation_dir, labelme_output_dir, image_width
                 'version': '4.5.9',
                 'flags': {},
                 'shapes': labelme_shapes,
-                'imagePath': yolo_annotation_file.replace('.txt', '.jpg'),  # Replace with your image filename
+                'imagePath': yolo_annotation_file.replace('.txt', img_ext),  # Replace with your image filename
                 'imageData': None,
                 'imageHeight': image_height,  # Replace with your image height
                 'imageWidth': image_width,   # Replace with your image width
@@ -89,6 +89,7 @@ def main():
     parser.add_argument("--width", type=int, required=False, default= 1024, help="Width of the images")
     parser.add_argument("--height", type=int, required=False, default= 1024, help="Height of the images")
     parser.add_argument("--classes", required=True, help="Path to the classes file (TXT format).")
+    parser.add_argument("--img_ext", required=False, default=".jpg", help="Image file extension (e.g., .jpg, .png, etc.)")
     
     args = parser.parse_args()
     
@@ -96,11 +97,11 @@ def main():
     if not os.path.exists(args.labelme):
         os.makedirs(args.labelme)
     
-    # Load class mapping from file
+    
     class_mapping = load_class_mapping(args.classes)
     
-    # Convert YOLO annotations to LabelMe format
-    convert_yolo_to_labelme(args.yolo, args.labelme, args.width, args.height, class_mapping)
+    
+    convert_yolo_to_labelme(args.yolo, args.labelme, args.width, args.height, class_mapping, args.img_ext)
 
 
     print("-------------------------Conversion completed------------------------------")
