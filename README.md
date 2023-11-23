@@ -19,7 +19,7 @@ Arguments:
 
 `--classes` : Path to the classes file(TXT format).
 
-`--img_ext(optional)` : Image file extension (e.g., .jpg, .png, etc.).
+`--img_ext(optional)` : Default extension is "jpg".
 
 ### CLI Usage:
 Specify yolo-labels-directory, output directory(optional), classes file, image size(width, height)(optional), and image extention(optional).
