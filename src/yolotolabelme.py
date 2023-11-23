@@ -12,14 +12,12 @@ def load_class_mapping(mapping_file):
     return class_mapping
 
 def convert_yolo_to_labelme(yolo_annotation_dir, labelme_output_dir, image_width, image_height, class_mapping, img_ext):
-    # Create LabelMe output directory if it doesn't exist
     os.makedirs(labelme_output_dir, exist_ok=True)
 
     # Iterate through YOLO(txt format) annotation files
     for yolo_annotation_file in os.listdir(yolo_annotation_dir):
         if yolo_annotation_file.endswith('.txt'):
-            # Parse YOLO annotation
-            with open(os.path.join(yolo_annotation_dir, yolo_annotation_file), 'r') as yolo_file:
+            with open(os.path.join(yolo_annotation_dir, yolo_annotation_file), 'r') as yolo_file:  # Parse YOLO annotation
                 yolo_annotations = yolo_file.readlines()
 
             labelme_shapes = []
@@ -29,7 +27,7 @@ def convert_yolo_to_labelme(yolo_annotation_dir, labelme_output_dir, image_width
                 if len(annotation_parts) == 5:  # Bounding box format
                     class_id, x_center, y_center, width, height = map(float, annotation_parts)
 
-                    # Calculate coordinates for LabelMe bounding box and rescale coordinates to match image size
+                    # Calculating coordinates for LabelMe bounding box and rescale coordinates to match image size
                     x1, y1 = int(x_center * image_width - (width * image_width) / 2), int(y_center * image_height - (height * image_height) / 2)
                     x2, y2 = int(x_center * image_width + (width * image_width) / 2), int(y_center * image_height + (height * image_height) / 2)
 
@@ -39,12 +37,12 @@ def convert_yolo_to_labelme(yolo_annotation_dir, labelme_output_dir, image_width
                     polygon_points = [int(float(x)) for x in annotation_parts[1:]]
                     shape_type = 'polygon'
                 else:
-                    continue  # Skip invalid annotations
+                    continue  # Skiping invalid annotations
 
                 if class_id in class_mapping:
                     class_label = class_mapping[class_id]
                 else:
-                    class_label = 'unknown'  # Handle unknown classes
+                    class_label = 'unknown'  # Handling unknown classes
 
                 if shape_type == 'rectangle':
                     labelme_shapes.append({
@@ -68,22 +66,22 @@ def convert_yolo_to_labelme(yolo_annotation_dir, labelme_output_dir, image_width
                 'version': '4.5.9',
                 'flags': {},
                 'shapes': labelme_shapes,
-                'imagePath': yolo_annotation_file.replace('.txt', img_ext),  # Replace with your image filename
+                'imagePath': yolo_annotation_file.replace('.txt', img_ext),  # image filename
                 'imageData': None,
-                'imageHeight': image_height,  # Replace with your image height
-                'imageWidth': image_width,   # Replace with your image width
+                'imageHeight': image_height,  # image height
+                'imageWidth': image_width,   # image width
             }
 
-            # Write LabelMe JSON file
+            # Writing LabelMe JSON file
             labelme_output_file = os.path.splitext(yolo_annotation_file)[0] + '.json'
             with open(os.path.join(labelme_output_dir, labelme_output_file), 'w') as labelme_file:
                 json.dump(labelme_data, labelme_file, indent=2)
 
 def main():
-    # Create argument parser
+    # Creating argument parser
     parser = argparse.ArgumentParser(description="Convert YOLO annotations to LabelMe JSON format.")
     
-    # Add arguments with shorter names
+    # Adding arguments
     parser.add_argument("--yolo", required=True, help="Path to the YOLO-annotation(TXT) directory.")
     parser.add_argument("--labelme", required=False, default= 'results', help="Path to the LabelMe-output(JSON) directory.")
     parser.add_argument("--width", type=int, required=False, default= 1024, help="Width of the images")
@@ -93,7 +91,7 @@ def main():
     
     args = parser.parse_args()
     
-    # Create the output directory if it doesn't exist
+    # output directory
     if not os.path.exists(args.labelme):
         os.makedirs(args.labelme)
     
